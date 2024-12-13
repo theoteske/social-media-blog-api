@@ -32,9 +32,9 @@ public class ExceptionAndErrorController {
         return ex.getMessage();
     }
 
-    // ResourceNotFoundException, NOT_FOUND (404)
+    // ResourceNotFoundException, BAD_REQUEST (400)
     @ExceptionHandler(ResourceNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String handleNotFound(ResourceNotFoundException ex) {
         return ex.getMessage();
     }
@@ -45,4 +45,12 @@ public class ExceptionAndErrorController {
     public String handleUnauthorized(AuthenticationException ex) {
         return ex.getMessage();
     }
+
+    // InvalidMessageTextException, BAD_REQUEST (400)
+    @ExceptionHandler(InvalidMessageTextException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String handleInvalidMessageText(InvalidMessageTextException ex) {
+        return ex.getMessage();
+    }
+
 }
