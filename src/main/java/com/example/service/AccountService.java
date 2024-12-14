@@ -20,15 +20,7 @@ public class AccountService {
         this.accountRepository = accountRepository;
     }
 
-    /**
-     * The registration will be successful if and only if:
-     *  - the username is not blank
-     *  - the password is at least 4 characters long
-     *  - and an Account with that username does not already exist.
-     *
-     * @param account an Account object
-     * @return the persisted Account object
-     */
+    
     public Account register(Account account) {
 
         if (account.getUsername().isEmpty() || account.getPassword().length() < 4)
@@ -40,14 +32,7 @@ public class AccountService {
         return accountRepository.save(account);
     }
 
-    /**
-     * The login will be successful if and only if:
-     *  - the username and password provided in the request body JSON match a real account existing on the database.
-     *
-     * @param account an Account object
-     * @return the persisted Account object
-     * @throws AuthenticationException
-     */
+    
     public Account login(Account account) throws AuthenticationException {
         Optional<Account> authenticatedAccount = accountRepository.findByUsernameAndPassword(account.getUsername(), account.getPassword());
         if (authenticatedAccount.isEmpty())
