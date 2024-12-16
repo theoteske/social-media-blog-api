@@ -11,42 +11,75 @@ import javax.security.sasl.AuthenticationException;
 @RestControllerAdvice
 public class ExceptionAndErrorController {
 
-    // if a required parameter is missing, status 400
+    /**
+     * If a required parameter is missing, returns response status 400 BAD_REQUEST.
+     *
+     * @param ex a MissingServletRequestParameterException object
+     * @return a String containing the missing parameter name and a message
+     */
     @ExceptionHandler(MissingServletRequestParameterException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String handleMissingParams(MissingServletRequestParameterException ex) {
         return ex.getParameterName() + " is missing in the query parameters and is required.";
     }
 
-    // DuplicateUsernameException, status 409
+    /**
+     * If an Account with the given username already exists, returns response status 409 CONFLICT.
+     *
+     * @param ex a DuplicateUsernameException object
+     * @return the detail message String of this exception
+     */
     @ExceptionHandler(DuplicateUsernameException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
     public String handleDuplicateUsername(DuplicateUsernameException ex) {
         return ex.getMessage();
     }
 
-    // InvalidUsernameOrPasswordException, status 400
+    /**
+     * If the username or password associated with an Account does not meet the necessary conditions, returns response
+     * status 400 BAD_REQUEST.
+     *
+     * @param ex an InvalidUsernameOrPasswordException object
+     * @return the detail message String of this exception
+     */
     @ExceptionHandler(InvalidUsernameOrPasswordException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String handleInvalidUsernameOrPassword(InvalidUsernameOrPasswordException ex) {
         return ex.getMessage();
     }
 
-    // ResourceNotFoundException, BAD_REQUEST (400)
+    /**
+     * If a referenced resource is not found in the database, returns response status 400 BAD_REQUEST.
+     *
+     * @param ex a ResourceNotFoundException object
+     * @return the detail message String of this exception
+     */
     @ExceptionHandler(ResourceNotFoundException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String handleNotFound(ResourceNotFoundException ex) {
         return ex.getMessage();
     }
 
-    // AuthenticationException, UNAUTHORIZED (401)
+    /**
+     * If there is not an existing Account with the given username and password, returns response status 401
+     * UNAUTHORIZED.
+     *
+     * @param ex an AuthenticationException object
+     * @return the detail message String of this exception
+     */
     @ExceptionHandler(AuthenticationException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public String handleUnauthorized(AuthenticationException ex) {
         return ex.getMessage();
     }
 
-    // InvalidMessageTextException, BAD_REQUEST (400)
+    /**
+     * If the messageText associated with a Message does not meet the necessary conditions, returns response status 400
+     * BAD_REQUEST.
+     *
+     * @param ex an InvalidMessageTextException object
+     * @return the detail message String of this exception
+     */
     @ExceptionHandler(InvalidMessageTextException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String handleInvalidMessageText(InvalidMessageTextException ex) {

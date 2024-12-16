@@ -20,7 +20,16 @@ public class AccountService {
         this.accountRepository = accountRepository;
     }
 
-    
+    /**
+     * Registers an Account if and only if the username is not blank, the password is at least 4 character long, and an
+     * Account with that username does not already exist. If all these conditions are met, the Account is persisted to
+     * the database.
+     *
+     * @param account an Account object without an accountId
+     * @return the persisted Account object, including its accountId
+     * @throws InvalidUsernameOrPasswordException if username is blank or password is less than 4 characters long
+     * @throws DuplicateUsernameException if an Account with the given username already exists
+     */
     public Account register(Account account) {
 
         if (account.getUsername().isEmpty() || account.getPassword().length() < 4)
@@ -32,7 +41,13 @@ public class AccountService {
         return accountRepository.save(account);
     }
 
-    
+    /**
+     * Verifies that the username and password provided match a real Account existing on the database.
+     *
+     * @param account an Account object without an accountId
+     * @return the persisted Account object, including its accountId
+     * @throws AuthenticationException if username and password do not match an existing Account
+     */
     public Account login(Account account) throws AuthenticationException {
         Optional<Account> authenticatedAccount = accountRepository.findByUsernameAndPassword(account.getUsername(), account.getPassword());
         if (authenticatedAccount.isEmpty())
@@ -40,4 +55,5 @@ public class AccountService {
 
         return authenticatedAccount.get();
     }
+
 }
