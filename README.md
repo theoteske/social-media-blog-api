@@ -24,6 +24,7 @@ A RESTful backend API built with Spring Boot for a social media platform that ha
 - H2 Database 2.1.214
 - Java 11
 - Maven
+- SQL
 
 ## Getting Started
 
